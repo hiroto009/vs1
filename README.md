@@ -12,7 +12,7 @@
  git push -u origin master  
 
 #コミットプッシュ
- git commit  
+ git commit -a  
  git push -u origin master  
 
 #取ってくる
