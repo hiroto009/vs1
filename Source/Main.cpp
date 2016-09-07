@@ -9,16 +9,17 @@
 */
 
 #include "../JuceLibraryCode/JuceHeader.h"
+/*
+	createMainContentComponent()
+	createPlayerComponent()
+	createSineSynthesis()
+	createLoopAudio()
+	createLoopAudio2()
+	createAudioThumbnail1()
+*/
+#define _MODULE_CONSTRACTOR createAudioThumbnail1()
 
-//‚È‚ñ‚©‚¨‚©‚µ‚¢‚¯‚Ç
-enum class ModuleType {noise=0, player};
-#define _MODULE_TYPE 0
-
-#if _MODULE_TYPE == ModuleType::player
-	Component* createPlayerComponent();
-#else
-	Component* createMainContentComponent();
-#endif
+Component* _MODULE_CONSTRACTOR;
 //==============================================================================
 class Audio_AudioBasics_SimpleSynthNoiseApplication  : public JUCEApplication
 {
@@ -74,11 +75,7 @@ public:
         {
             setUsingNativeTitleBar (true);
 			
-#if _MODULE_TYPE == ModuleType::player
-			setContentOwned(createPlayerComponent(), true);
-#else
-			setContentOwned(createMainContentComponent(), true);
-#endif
+			setContentOwned(_MODULE_CONSTRACTOR, true);
             setResizable (true, true);
 
             centreWithSize (getWidth(), getHeight());

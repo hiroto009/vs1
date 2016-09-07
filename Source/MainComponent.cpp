@@ -5,7 +5,8 @@
 
 
 class MainContentComponent : public AudioAppComponent,
-	public Slider::Listener, public Button::Listener
+							 public Slider::Listener,
+							 public Button::Listener
 {
 public:
 	MainContentComponent()
@@ -33,17 +34,17 @@ public:
 		levelSlider.setValue(targetLevel, dontSendNotification);
 		levelSlider.setTextBoxStyle(Slider::TextBoxRight, false, 100, 20);
 		levelSlider.addListener(this);
+		addAndMakeVisible(&levelSlider);
 
 		levelLabel.setText("Noise Level", dontSendNotification);
-
-		addAndMakeVisible(&levelSlider);
 		addAndMakeVisible(&levelLabel);
 	}
 
 	void addRateInfo() {
 		rateLabel.setText("Sample Rate", dontSendNotification);
-		rateValue.setText("--", dontSendNotification);
 		addAndMakeVisible(&rateLabel);
+
+		rateValue.setText("--", dontSendNotification);
 		addAndMakeVisible(&rateValue);
 	}
 
@@ -57,16 +58,18 @@ public:
 
 	void clickStartButton() {
 		String val = "start";
+		Colour colour = Colours::lightskyblue;
 		String cur = startButton.getButtonText();
 		if (val.compare(cur) == 0) {
-			startButton.setColour(1, Colour());
-			setAudioChannels(0, 2);
 			val = "stop";
+			colour = Colours::tomato;
+			setAudioChannels(0, 2);
 		}
 		else {
-			shutdownAudio();
 			val = "start";
+			shutdownAudio();
 		}
+
 		Logger::writeToLog(val);
 		if (sampleRate > 0) {
 			String val = String(sampleRate / 10.0);
@@ -76,10 +79,12 @@ public:
 			rateValue.setText("--", dontSendNotification);
 		}
 		startButton.setButtonText(val);
+		startButton.setColour(TextButton::buttonColourId, colour);
 	}
 
 	void addController() {
 		startButton.setButtonText("start");
+		startButton.setColour(TextButton::buttonColourId, Colours::lightskyblue);
 		startButton.setToggleState(false, sendNotification);
 		startButton.addListener(this);
 		addAndMakeVisible(&startButton);
@@ -177,7 +182,6 @@ private:
 	float targetLevel;
 	int samplesToTarget;
 	static const int rampLengthSamples;
-
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };

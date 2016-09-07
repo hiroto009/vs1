@@ -169,9 +169,7 @@ private:
     
     void openButtonClicked()
     {
-        FileChooser chooser ("Select a Wave file to play...",
-                             File::nonexistent,
-                             "*.wav");
+		FileChooser chooser("Select a Wave file to play...", File::nonexistent,	"*.wav;*.flac");
         
         if (chooser.browseForFileToOpen())
         {

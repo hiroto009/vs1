@@ -13,7 +13,7 @@
 
 #コミットプッシュ
  git commit  
- git push origin master  
+ git push -u origin master  
 
 #取ってくる
  git pull  
